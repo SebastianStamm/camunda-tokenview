@@ -92,36 +92,15 @@ function addSpace(p1,p2,p3) {
 
 function handleModel(viewer) {
   const scene = document.createElement('a-scene');
-
-  // <a-sky color="#ECECEC"></a-sky>
-  const sky = document.createElement('a-sky');
-  // sky.setAttribute('color', '#ECECEC');
-  sky.setAttribute('color', '#FF0000');
-  scene.appendChild(sky);
-
-  // document.body.appendChild(scene);
-
+  scene.setAttribute('embedded', 'true');
   scene.style.position = 'absolute';
   scene.style.top = '0';
 
-  return scene;
-  /*    <a-assets>
-          <a-asset-item id="human-obj" src="/human.obj"></a-asset-item>
-        </a-assets>
-  */
-  const assets = document.createElement('a-assets');
 
-  const humanObj = document.createElement('a-asset-item');
-  humanObj.setAttribute('id', 'human-obj');
-  humanObj.setAttribute('src', './human.obj');
-  assets.appendChild(humanObj);
-
-  const computerObj = document.createElement('a-asset-item');
-  computerObj.setAttribute('id', 'computer-obj');
-  computerObj.setAttribute('src', './computer.obj');
-  assets.appendChild(computerObj);
-
-  scene.appendChild(assets);
+  // <a-sky color="#ECECEC"></a-sky>
+  const sky = document.createElement('a-sky');
+  sky.setAttribute('color', '#ECECEC');
+  scene.appendChild(sky);
 
   let startPosition;
 
@@ -190,10 +169,10 @@ function handleModel(viewer) {
   directionalLight.setAttribute('position', '0 1 0');
   scene.appendChild(directionalLight);
 
-  document.body.appendChild(scene);
-
   window.BATscene = scene;
   window.BATcamera = camera;
+
+  return scene;
 }
 
 

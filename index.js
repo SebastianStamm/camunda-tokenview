@@ -90,12 +90,21 @@ define(['angular'], function(angular) {
               console.log('should initialize view with', hoveredElement);
 
               document.querySelector('[process-diagram]').appendChild(handleModel(viewer));
-              // handleModel(viewer);
             }
           }
         });
 
         document.querySelector('.bjs-container').appendChild(initButton);
+
+        // react to resizing of bottom and left panel
+        const originalSetItem = localStorage.setItem;
+        localStorage.setItem = function(){
+          if(BATscene) {
+            const interval = window.setInterval(() => {BATscene.resize();}, 10);
+            window.setTimeout(() => window.clearInterval(interval), 500);
+          }
+          originalSetItem.apply(this, arguments);
+        }
       }]
     });
   }]);
