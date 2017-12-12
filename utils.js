@@ -129,7 +129,7 @@ function handleModel(viewer, startNode) {
       handleSequenceFlow(scene, element);
     }
 
-    if(bo.$instanceOf('bpmn:Task')) {
+    if(bo.$instanceOf('bpmn:Task') || bo.$instanceOf('bpmn:CallActivity')) {
       handleTask(scene, element);
       if(bo === startNode) {
         startPosition = element;
