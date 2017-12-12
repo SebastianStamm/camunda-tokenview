@@ -260,7 +260,7 @@ function handleTask(scene, element) {
 
   {
     const label = document.createElement('a-image');
-    label.setAttribute('src', 'img/door.png');
+    label.setAttribute('src', '/camunda/app/cockpit/scripts/tokenView/img/door.png');
     label.setAttribute('position', (element.y * globalScaleFactor - layer1) + ' ' + (sequenceFlowHeight / 2) + ' ' + -(element.x * globalScaleFactor + element.width * globalScaleFactor / 2));
     label.setAttribute('rotation', '0 90 0');
     label.setAttribute('scale', (sequenceFlowWidth * 2) + ' ' + (roomHeight / 2));
@@ -273,7 +273,7 @@ function handleTask(scene, element) {
   }
   {
     const label = document.createElement('a-image');
-    label.setAttribute('src', 'img/door.png');
+    label.setAttribute('src', '/camunda/app/cockpit/scripts/tokenView/img/door.png');
     label.setAttribute('position', ((element.y + element.height) * globalScaleFactor + layer1) + ' ' + (sequenceFlowHeight / 2) + ' ' + -(element.x * globalScaleFactor + element.width * globalScaleFactor / 2));
     label.setAttribute('rotation', '0 90 0');
     label.setAttribute('scale', (sequenceFlowWidth * 2) + ' ' + (roomHeight / 2));
@@ -286,7 +286,7 @@ function handleTask(scene, element) {
   }
   {
     const label = document.createElement('a-image');
-    label.setAttribute('src', 'img/door.png');
+    label.setAttribute('src', '/camunda/app/cockpit/scripts/tokenView/img/door.png');
     label.setAttribute('position', ((element.y + element.height / 2) * globalScaleFactor) + ' ' + (sequenceFlowHeight / 2) + ' ' + -(element.x * globalScaleFactor - layer1));
     label.setAttribute('rotation', '0 0 0');
     label.setAttribute('scale', (sequenceFlowWidth * 2) + ' ' + (roomHeight / 2));
@@ -299,7 +299,7 @@ function handleTask(scene, element) {
   }
   {
     const label = document.createElement('a-image');
-    label.setAttribute('src', 'img/door.png');
+    label.setAttribute('src', '/camunda/app/cockpit/scripts/tokenView/img/door.png');
     label.setAttribute('position', ((element.y + element.height / 2) * globalScaleFactor) + ' ' + (sequenceFlowHeight / 2) + ' ' + -((element.x + element.width) * globalScaleFactor + layer1));
     label.setAttribute('rotation', '0 0 0');
     label.setAttribute('scale', (sequenceFlowWidth * 2) + ' ' + (roomHeight / 2));
