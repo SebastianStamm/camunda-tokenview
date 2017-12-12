@@ -89,7 +89,7 @@ define(['angular'], function(angular) {
             if(hoveredElement.$instanceOf('bpmn:FlowNode')) {
               console.log('should initialize view with', hoveredElement);
 
-              document.querySelector('[process-diagram]').appendChild(handleModel(viewer));
+              document.querySelector('[process-diagram]').appendChild(handleModel(viewer, hoveredElement));
             }
           }
         });
@@ -99,7 +99,7 @@ define(['angular'], function(angular) {
         // react to resizing of bottom and left panel
         const originalSetItem = localStorage.setItem;
         localStorage.setItem = function(){
-          if(BATscene) {
+          if(window.BATscene) {
             const interval = window.setInterval(() => {BATscene.resize();}, 10);
             window.setTimeout(() => window.clearInterval(interval), 500);
           }

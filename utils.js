@@ -90,7 +90,7 @@ function addSpace(p1,p2,p3) {
   openSpaces.push({p1,p2,p3});
 }
 
-function handleModel(viewer) {
+function handleModel(viewer, startNode) {
   const scene = document.createElement('a-scene');
   scene.setAttribute('embedded', 'true');
   scene.style.position = 'absolute';
@@ -131,17 +131,23 @@ function handleModel(viewer) {
 
     if(bo.$instanceOf('bpmn:Task')) {
       handleTask(scene, element);
+      if(bo === startNode) {
+        startPosition = element;
+      }
     }
 
     if(bo.$instanceOf('bpmn:Event')) {
       handleGateway(scene, element);
-      if(bo.$instanceOf('bpmn:StartEvent')) {
+      if(bo === startNode) {
         startPosition = element;
       }
     }
 
     if(bo.$instanceOf('bpmn:Gateway')) {
       handleGateway(scene, element);
+      if(bo === startNode) {
+        startPosition = element;
+      }
     }
   });
 
@@ -152,6 +158,7 @@ function handleModel(viewer) {
   camera.setAttribute('look-controls', true);
   camera.setAttribute('wasd-controls', 'acceleration: 250');
   camera.setAttribute('position', (startPosition.y * globalScaleFactor + posOffset) + ' 0 ' + (-startPosition.x * globalScaleFactor - posOffset));
+  camera.setAttribute('rotation', '-45 90 0');
   camera.setAttribute('collision', true);
   scene.appendChild(camera);
 
