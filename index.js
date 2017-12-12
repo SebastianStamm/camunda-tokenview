@@ -8,6 +8,16 @@ define(['angular'], function(angular) {
       overlay: ['$scope', 'control', 'processData', 'pageData', 'processDiagram', 'search', 'get', 'modification',
       function($scope, control, processData, pageData, processDiagram, search, get, modification) {
 
+        // make flownodes selectable
+        Object
+        .keys(processDiagram.bpmnElements)
+        .forEach(function(key) {
+          var bpmnElement = processDiagram.bpmnElements[key];
+          if(bpmnElement.$instanceOf('bpmn:FlowNode')) {
+            bpmnElement.isSelectable = true;
+          }
+        });
+
         // load aframe
         if(!window.Aframeloaded) {
           window.Aframeloaded = true;
