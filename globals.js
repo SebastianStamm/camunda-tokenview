@@ -1,0 +1,16 @@
+window.sequenceFlowWidth = 1.2;
+window.sequenceFlowHeight = 3.5;
+window.taskOutlineWidth = 0.5;
+window.gatewayOutlineWidth = 0.5;
+window.eventOulineWidth = 0.3;
+window.globalScaleFactor = 0.17;
+window.layer0 = 0;
+window.layer1 = 0.01;
+window.layer2 = 0.02;
+window.flowOutlineWidthFactor = .8;
+window.roomHeight = 7.5;
+window.gatewayHeight = 5;
+window.availableDoors = [];
+window.doorThreshold = 50;
+window.doorOpacity = .85;
+window.movementSensitivity = 0.05;

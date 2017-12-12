@@ -8,12 +8,42 @@ define(['angular'], function(angular) {
       overlay: ['$scope', 'control', 'processData', 'pageData', 'processDiagram', 'search', 'get', 'modification',
       function($scope, control, processData, pageData, processDiagram, search, get, modification) {
 
+        // load aframe
+        if(!window.Aframeloaded) {
+          window.Aframeloaded = true;
+          [
+            'https://aframe.io/releases/0.5.0/aframe.min.js'
+          ].forEach(src => {
+            const scriptTag = document.createElement('script');
+            scriptTag.setAttribute('src', src);
+            document.head.appendChild(scriptTag);
+          });
+
+          const interval = window.setInterval(() => {
+            if(window.AFRAME) {
+              window.clearInterval(interval);
+              [
+                '/camunda/app/cockpit/scripts/tokenView/globals.js',
+                '/camunda/app/cockpit/scripts/tokenView/utils.js',
+                '/camunda/app/cockpit/scripts/tokenView/collision.js',
+                '/camunda/app/cockpit/scripts/tokenView/sequenceFlow.js',
+                '/camunda/app/cockpit/scripts/tokenView/task.js',
+                '/camunda/app/cockpit/scripts/tokenView/gateway.js',
+                '/camunda/app/cockpit/scripts/tokenView/event.js',
+              ].forEach(src => {
+                const scriptTag = document.createElement('script');
+                scriptTag.setAttribute('src', src);
+                document.head.appendChild(scriptTag);
+              });
+            }
+          }, 100);
+        }
+
         const viewer = control.getViewer();
         let hoveredElement;
         viewer.on('element.hover', (evt) => {
           hoveredElement = evt.element.businessObject;
         });
-
 
         const initButton = document.createElement('button');
         initButton.textContent = '🚶';
@@ -58,6 +88,9 @@ define(['angular'], function(angular) {
 
             if(hoveredElement.$instanceOf('bpmn:FlowNode')) {
               console.log('should initialize view with', hoveredElement);
+
+              document.querySelector('[process-diagram]').appendChild(handleModel(viewer));
+              // handleModel(viewer);
             }
           }
         });
