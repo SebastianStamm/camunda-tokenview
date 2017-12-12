@@ -7,7 +7,13 @@ define(['angular'], function(angular) {
       id: 'cockpit.tokenView',
       overlay: ['$scope', 'control', 'processData', 'pageData', 'processDiagram', 'search', 'get', 'modification',
       function($scope, control, processData, pageData, processDiagram, search, get, modification) {
-        console.log('in diagram overlay thing', $scope);
+
+        const viewer = control.getViewer();
+        let hoveredElement;
+        viewer.on('element.hover', (evt) => {
+          hoveredElement = evt.element.businessObject;
+        });
+
 
         const initButton = document.createElement('button');
         initButton.textContent = '🚶';
@@ -49,12 +55,14 @@ define(['angular'], function(angular) {
             initButton.style.border = '1px solid lightgray';
             initButton.style.backgroundColor = 'white';
             initButton.style.pointerEvents = 'initial';
+
+            if(hoveredElement.$instanceOf('bpmn:FlowNode')) {
+              console.log('should initialize view with', hoveredElement);
+            }
           }
         });
 
         document.querySelector('.bjs-container').appendChild(initButton);
-
-        console.log('diagram container', document.querySelector('.diagram-holder'));
       }]
     });
   }]);
