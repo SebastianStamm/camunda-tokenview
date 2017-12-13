@@ -22,7 +22,8 @@ define(['angular'], function(angular) {
         if(!window.Aframeloaded) {
           window.Aframeloaded = true;
           [
-            'https://aframe.io/releases/0.5.0/aframe.min.js'
+            'https://aframe.io/releases/0.5.0/aframe.min.js',
+            '/camunda/app/cockpit/scripts/tokenView/tokenManager.js',
           ].forEach(src => {
             const scriptTag = document.createElement('script');
             scriptTag.setAttribute('src', src);
@@ -30,7 +31,7 @@ define(['angular'], function(angular) {
           });
 
           const interval = window.setInterval(() => {
-            if(window.AFRAME) {
+            if(window.AFRAME && window.tokenManager) {
               window.clearInterval(interval);
               [
                 '/camunda/app/cockpit/scripts/tokenView/globals.js',
@@ -45,6 +46,8 @@ define(['angular'], function(angular) {
                 scriptTag.setAttribute('src', src);
                 document.head.appendChild(scriptTag);
               });
+
+              tokenManager(processData.$providers.local.processInstance.data.value.id);
             }
           }, 100);
         }
