@@ -37,6 +37,7 @@ define(['angular'], function(angular) {
                 '/camunda/app/cockpit/scripts/tokenView/globals.js',
                 '/camunda/app/cockpit/scripts/tokenView/utils.js',
                 '/camunda/app/cockpit/scripts/tokenView/collision.js',
+                '/camunda/app/cockpit/scripts/tokenView/tokens.js',
                 '/camunda/app/cockpit/scripts/tokenView/sequenceFlow.js',
                 '/camunda/app/cockpit/scripts/tokenView/task.js',
                 '/camunda/app/cockpit/scripts/tokenView/gateway.js',

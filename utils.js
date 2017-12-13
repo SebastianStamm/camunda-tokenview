@@ -160,6 +160,7 @@ function handleModel(viewer, startNode) {
   camera.setAttribute('position', (startPosition.y * globalScaleFactor + posOffset) + ' 0 ' + (-startPosition.x * globalScaleFactor - posOffset));
   camera.setAttribute('rotation', '-45 90 0');
   camera.setAttribute('collision', true);
+  camera.setAttribute('tokens', true);
   scene.appendChild(camera);
 
   // setup lights
@@ -178,6 +179,7 @@ function handleModel(viewer, startNode) {
 
   window.BATscene = scene;
   window.BATcamera = camera;
+  window.BATViewer = viewer;
 
   return scene;
 }
