@@ -32,12 +32,50 @@ const bouncyness = 0.007;
 
 					token.obj = obj;
 					token.speed = 0.03;
+					token.currentStage = token.life.length - 1;
 					token.currentResidence = modelElement;
 					token.targetPosition = [{
 						x: modelElement.y * globalScaleFactor + Math.random() * modelElement.height * globalScaleFactor,
 						z: -modelElement.x * globalScaleFactor - Math.random() * modelElement.width * globalScaleFactor
 					}];
 					token.bounceCycle = Math.random() * 2 * Math.PI;
+				}
+
+				while(token.currentStage < token.life.length - 1) {
+					if(token.speed === 0.03) {
+						token.targetPosition.length = 0;
+					}
+
+					token.speed = .5
+					token.currentStage++;
+
+					const targetActivity = token.life[token.currentStage].activityId;
+					const sequenceFlow = token.currentResidence.outgoing.find(connection => {
+						return connection.businessObject.targetRef.id === targetActivity;
+					});
+
+					if(sequenceFlow) {
+						token.targetPosition.push({
+							x: token.currentResidence.y * globalScaleFactor + .5 * token.currentResidence.height * globalScaleFactor,
+							z: -token.currentResidence.x * globalScaleFactor - .5 * token.currentResidence.width * globalScaleFactor
+						});
+						sequenceFlow.waypoints.forEach(({x,y}) => {
+							token.targetPosition.push({
+								x: y * globalScaleFactor,
+								z: -x * globalScaleFactor
+							});
+						});
+
+						token.currentResidence = window.BATViewer.get('elementRegistry').get(targetActivity);
+
+						token.targetPosition.push({
+							x: token.currentResidence.y * globalScaleFactor + .5 * token.currentResidence.height * globalScaleFactor,
+							z: -token.currentResidence.x * globalScaleFactor - .5 * token.currentResidence.width * globalScaleFactor
+						});
+					} else {
+						console.log('could not find connection to next activity');
+						debugger;
+					}
 				}
 
 
@@ -69,21 +107,20 @@ const bouncyness = 0.007;
 							pos.z = token.targetPosition[0].z;
 
 							token.targetPosition.shift();
-
-							if(token.targetPosition.length === 0) {
-								// set a new targetposition to avoid idling around
-								token.newPositionTimeout = setTimeout(() => {
-									token.targetPosition.push({
-										x: token.currentResidence.y * globalScaleFactor + Math.random() * token.currentResidence.height * globalScaleFactor,
-										z: -token.currentResidence.x * globalScaleFactor - Math.random() * token.currentResidence.width * globalScaleFactor
-									});
-								}, 1500);
-							}
 						}
 					}
-
-
 					token.obj.setAttribute('position', pos);
+
+					if(token.targetPosition.length === 0) {
+						// set a new targetposition to avoid idling around
+						token.newPositionTimeout = setTimeout(() => {
+							token.speed = 0.03;
+							token.targetPosition.push({
+								x: token.currentResidence.y * globalScaleFactor + Math.random() * token.currentResidence.height * globalScaleFactor,
+								z: -token.currentResidence.x * globalScaleFactor - Math.random() * token.currentResidence.width * globalScaleFactor
+							});
+						}, 1500);
+					}
 				}
 
 

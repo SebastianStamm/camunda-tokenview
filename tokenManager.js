@@ -13,7 +13,7 @@ window.setInterval(async () => {
       body: JSON.stringify({
         processInstanceId: window.tokenManagerInstance,
         "sorting":
-        [{"sortBy": "startTime",
+        [{"sortBy": "occurrence",
         "sortOrder": "asc"
         }]
       })
