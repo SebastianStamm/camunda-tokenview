@@ -60,6 +60,13 @@
         this.el.components['wasd-controls'].data.acceleration = 250;
 			}
 
+			const x = -this.el.object3D.position.z / globalScaleFactor;
+			const y = this.el.object3D.position.x / globalScaleFactor;
+
+			const rotation = 135 - (this.el.object3D.rotation.y / Math.PI * 180);
+
+			updatePreviewPosition(x, y, rotation);
+
 			/**
 			 * Tests each collideWiths for intersection.
 			 */

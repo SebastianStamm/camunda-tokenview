@@ -130,9 +130,17 @@ define(['angular'], function(angular) {
 
               viewer.saveXML({},function(err, xml){
                 previewViewer.importXML(xml, function(err) {
-                  // preview.querySelector('.bjs-powered-by').innerHTML = '';
                 });
-              })
+              });
+
+              window.updatePreviewPosition = function(x,y,rotation) {
+                previewViewer.get('canvas').viewbox({
+                  x: x - 100,
+                  y: y - 50,
+                  width: 200,
+                  height: 100
+                });
+              }
             }
           }
         });
