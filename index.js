@@ -49,6 +49,11 @@ define(['angular'], function(angular) {
           }, 100);
         }
 
+        // remove all bpmn io logos
+        const customStyles = document.createElement('style');
+        customStyles.innerHTML = '.bjs-powered-by{display: none !important;}';
+        document.head.appendChild(customStyles);
+
         const viewer = control.getViewer();
         let hoveredElement;
         viewer.on('element.hover', (evt) => {
@@ -99,7 +104,35 @@ define(['angular'], function(angular) {
             if(hoveredElement.$instanceOf('bpmn:FlowNode')) {
               console.log('should initialize view with', hoveredElement);
 
-              document.querySelector('[process-diagram]').appendChild(handleModel(viewer, hoveredElement));
+              const vrView = handleModel(viewer, hoveredElement);
+
+              document.querySelector('[process-diagram]').appendChild(vrView);
+
+              // add a preview diagram
+              const preview = document.createElement('div');
+              preview.style.position = 'absolute';
+              preview.style.bottom = '20px';
+              preview.style.left = '10px';
+              preview.style.height = '100px';
+              preview.style.width = '200px';
+              preview.style.border = '1px solid lightgray';
+              preview.style.backgroundColor = 'white';
+              preview.style.cursor = 'pointer';
+
+              preview.addEventListener('click', () => {
+                document.querySelector('[process-diagram]').removeChild(preview);
+                document.querySelector('[process-diagram]').removeChild(vrView);
+              });
+
+              const previewViewer = new viewer.constructor({ container: preview });
+
+              document.querySelector('[process-diagram]').appendChild(preview);
+
+              viewer.saveXML({},function(err, xml){
+                previewViewer.importXML(xml, function(err) {
+                  // preview.querySelector('.bjs-powered-by').innerHTML = '';
+                });
+              })
             }
           }
         });
