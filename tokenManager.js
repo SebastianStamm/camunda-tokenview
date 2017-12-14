@@ -1,5 +1,6 @@
 let viewer;
 window.tokenManager = (id, v) => {
+  window.tokens = [];
   window.tokenManagerInstance = id;
   viewer = v;
 }

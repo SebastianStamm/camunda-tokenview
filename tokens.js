@@ -9,6 +9,8 @@ const bouncyness = 0.007;
 			var self = this;
 			const tokens = window.tokens;
 
+			const initialSetup = !tokens.find(token => token.obj);
+
 			for(let i = 0; i < tokens.length; i++) {
 				const token = tokens[i];
 
@@ -19,7 +21,7 @@ const bouncyness = 0.007;
 					obj.setAttribute('radius', '0.5');
 					window.BATscene.appendChild(obj);
 
-					const latestStage = token.life[0];
+					const latestStage = token.life[initialSetup ? token.life.length -1 : 0];
 					const modelElement = window.BATViewer.get('elementRegistry').get(latestStage.activityId);
 
 					const position = {
@@ -32,7 +34,7 @@ const bouncyness = 0.007;
 
 					token.obj = obj;
 					token.speed = 0.03;
-					token.currentStage = 0;
+					token.currentStage = initialSetup ? token.life.length -1 : 0;
 					token.currentResidence = modelElement;
 					token.targetPosition = [{
 						x: modelElement.y * globalScaleFactor + Math.random() * modelElement.height * globalScaleFactor,
@@ -127,8 +129,6 @@ const bouncyness = 0.007;
 						}, 1500);
 					}
 				}
-
-
 			}
 		}
 	});
