@@ -312,7 +312,7 @@ function handleTask(scene, element) {
   }
 
   // add labels to next stuff
-  if(openExits.e) {
+  if(openExits.e.name) {
     const toLabel = document.createElement('a-entity');
     toLabel.setAttribute('rotation', '0 0 0');
     toLabel.setAttribute('text', 'value: '+(openExits.e.incoming ? 'From' : 'To')+'; color: black; width: 10; align: center;');
@@ -324,7 +324,7 @@ function handleTask(scene, element) {
     nameLabel.setAttribute('position', (element.y * globalScaleFactor + element.height / 2 * globalScaleFactor) + ' 4 ' + -(element.x * globalScaleFactor + element.width * globalScaleFactor - layer1));
     scene.appendChild(nameLabel);
   }
-  if(openExits.w) {
+  if(openExits.w.name) {
     const toLabel = document.createElement('a-entity');
     toLabel.setAttribute('rotation', '0 180 0');
     toLabel.setAttribute('text', 'value: '+(openExits.w.incoming ? 'From' : 'To')+'; color: black; width: 10; align: center;');
@@ -336,7 +336,7 @@ function handleTask(scene, element) {
     nameLabel.setAttribute('position', (element.y * globalScaleFactor + element.height / 2 * globalScaleFactor) + ' 4 ' + -(element.x * globalScaleFactor + layer1));
     scene.appendChild(nameLabel);
   }
-  if(openExits.n) {
+  if(openExits.n.name) {
     const toLabel = document.createElement('a-entity');
     toLabel.setAttribute('rotation', '0 90 0');
     toLabel.setAttribute('text', 'value: '+(openExits.n.incoming ? 'From' : 'To')+'; color: black; width: 10; align: center;');
@@ -348,7 +348,7 @@ function handleTask(scene, element) {
     nameLabel.setAttribute('position', (element.y * globalScaleFactor + layer1) + ' 4 ' + -((element.x + element.width / 2) * globalScaleFactor));
     scene.appendChild(nameLabel);
   }
-  if(openExits.s) {
+  if(openExits.s.name) {
     const toLabel = document.createElement('a-entity');
     toLabel.setAttribute('rotation', '0 -90 0');
     toLabel.setAttribute('text', 'value: '+(openExits.s.incoming ? 'From' : 'To')+'; color: black; width: 10; align: center;');

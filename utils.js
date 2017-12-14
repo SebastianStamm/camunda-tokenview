@@ -190,27 +190,27 @@ function findOpenExits(element) {
 
   element.incoming.forEach(incoming => {
     const lastWp = incoming.waypoints[incoming.waypoints.length -1];
-    if(lastWp.x === element.x && incoming.source.businessObject.name) {
+    if(lastWp.x === element.x && incoming.source.businessObject) {
       w = {
-        name: incoming.source.businessObject.name.replace('\n', ' '),
+        name: incoming.source.businessObject.name,
         incoming: true
       };
     }
-    if(lastWp.x === element.x + element.width && incoming.source.businessObject.name) {
+    if(lastWp.x === element.x + element.width && incoming.source.businessObject) {
       e = {
-        name: incoming.source.businessObject.name.replace('\n', ' '),
+        name: incoming.source.businessObject.name,
         incoming: true
       };
     }
-    if(lastWp.y === element.y && incoming.source.businessObject.name) {
+    if(lastWp.y === element.y && incoming.source.businessObject) {
       n = {
-        name: incoming.source.businessObject.name.replace('\n', ' '),
+        name: incoming.source.businessObject.name,
         incoming: true
       };
     }
-    if(lastWp.y === element.y + element.height && incoming.source.businessObject.name) {
+    if(lastWp.y === element.y + element.height && incoming.source.businessObject) {
       s = {
-        name: incoming.source.businessObject.name.replace('\n', ' '),
+        name: incoming.source.businessObject.name,
         incoming: true
       };
     }
@@ -218,27 +218,27 @@ function findOpenExits(element) {
 
   element.outgoing.forEach(outgoing => {
     const lastWp = outgoing.waypoints[0];
-    if(lastWp.x === element.x && outgoing.target.businessObject.name) {
+    if(lastWp.x === element.x && outgoing.target.businessObject) {
       w = {
-        name: outgoing.target.businessObject.name.replace('\n', ' '),
+        name: outgoing.target.businessObject.name,
         incoming: false
       };
     }
-    if(lastWp.x === element.x + element.width && outgoing.target.businessObject.name) {
+    if(lastWp.x === element.x + element.width && outgoing.target.businessObject) {
       e = {
-        name: outgoing.target.businessObject.name.replace('\n', ' '),
+        name: outgoing.target.businessObject.name,
         incoming: false
       };
     }
-    if(lastWp.y === element.y && outgoing.target.businessObject.name) {
+    if(lastWp.y === element.y && outgoing.target.businessObject) {
       n = {
-        name: outgoing.target.businessObject.name.replace('\n', ' '),
+        name: outgoing.target.businessObject.name,
         incoming: false
       };
     }
-    if(lastWp.y === element.y + element.height && outgoing.target.businessObject.name) {
+    if(lastWp.y === element.y + element.height && outgoing.target.businessObject) {
       s = {
-        name: outgoing.target.businessObject.name.replace('\n', ' '),
+        name: outgoing.target.businessObject.name,
         incoming: false
       };
     }
