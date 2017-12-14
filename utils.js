@@ -177,9 +177,19 @@ function handleModel(viewer, startNode) {
   directionalLight.setAttribute('position', '0 1 0');
   scene.appendChild(directionalLight);
 
+  // add gun
+  const gun = document.createElement('a-entity');
+  gun.setAttribute('obj-model', 'obj: url(/camunda/app/cockpit/scripts/tokenView/models/gun.obj); mtl: url(/camunda/app/cockpit/scripts/tokenView/models/gun.mtl)');
+  gun.setAttribute('position', {x: 0.5, y: -0.65, z: -0.5});
+  gun.setAttribute('rotation', {x: -10, y: 100, z: 10});
+  gun.setAttribute('scale', {x: .003, y: .003, z: .003});
+  camera.appendChild(gun);
+
   window.BATscene = scene;
   window.BATcamera = camera;
   window.BATViewer = viewer;
+
+  window.gun = gun;
 
   return scene;
 }
