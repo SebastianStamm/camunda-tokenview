@@ -24,6 +24,7 @@ define(['angular'], function(angular) {
           [
             'https://aframe.io/releases/0.5.0/aframe.min.js',
             '/camunda/app/cockpit/scripts/tokenView/tokenManager.js',
+            '/camunda/app/cockpit/scripts/tokenView/taskCompleter.js',
           ].forEach(src => {
             const scriptTag = document.createElement('script');
             scriptTag.setAttribute('src', src);
