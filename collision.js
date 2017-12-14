@@ -8,8 +8,13 @@
       window.debugObj = this;
 
 			availableDoors.forEach(door => {
-				if(distanceBetween(door.object3D.position, this.el.object3D.position) < doorThreshold) {
-					openDoor(door);
+				const tokenInRange = window.tokens.find(token => {
+					const pos = token.obj && token.obj.getAttribute('position');
+					return token.speed === .7 && pos && distanceBetween(door.object3D.position, pos) < 20;
+				});
+
+				if(distanceBetween(door.object3D.position, this.el.object3D.position) < doorThreshold || tokenInRange) {
+					openDoor(door, tokenInRange);
 				} else {
 					closeDoor(door);
 				}
@@ -97,7 +102,7 @@ function distanceBetween(p1, p2) {
 	return Math.pow(p1.x - p2.x, 2) + Math.pow(p1.z - p2.z, 2);
 }
 
-function openDoor(door) {
+function openDoor(door, fast) {
 	// door.object3D.position.y = sequenceFlowHeight;
 	if(door.closingAnimObj) {
 		door.removeChild(door.closingAnimObj);
@@ -106,8 +111,9 @@ function openDoor(door) {
 	if(!door.openingAnimObj) {
 		const anim = document.createElement('a-animation');
 		anim.setAttribute('attribute', 'position');
-		anim.setAttribute('dur', '500');
+		anim.setAttribute('dur', fast ? '100' : '500');
 		anim.setAttribute('to', door.object3D.position.x + ' ' + (sequenceFlowHeight * 1.5) + ' ' + door.object3D.position.z);
+		anim.fast = fast;
 
 		door.appendChild(anim);
 		door.openingAnimObj = anim;
@@ -116,14 +122,16 @@ function openDoor(door) {
 
 function closeDoor(door) {
 	// door.object3D.position.y = sequenceFlowHeight / 2;
+	let wasFast = false;
 	if(door.openingAnimObj) {
 		door.removeChild(door.openingAnimObj);
+		wasFast = door.openingAnimObj.fast;
 		door.openingAnimObj = null;
 	}
 	if(!door.closingAnimObj) {
 		const anim = document.createElement('a-animation');
 		anim.setAttribute('attribute', 'position');
-		anim.setAttribute('dur', '500');
+		anim.setAttribute('dur', wasFast ? '100' : '500');
 		anim.setAttribute('to', door.object3D.position.x + ' ' + (sequenceFlowHeight * 0.5) + ' ' + door.object3D.position.z);
 
 		door.appendChild(anim);

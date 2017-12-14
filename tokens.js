@@ -84,7 +84,6 @@ const bouncyness = 0.007;
 					}
 				}
 
-
 				const pos = token.obj.getAttribute('position');
 				if(pos) {
 					pos.y = .75 + .5 * Math.sin(token.bounceCycle);
