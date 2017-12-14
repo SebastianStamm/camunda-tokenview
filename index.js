@@ -48,7 +48,7 @@ define(['angular'], function(angular) {
                 document.head.appendChild(scriptTag);
               });
 
-              tokenManager(processData.$providers.local.processInstance.data.value.id);
+              tokenManager(processData.$providers.local.processInstance.data.value.id, control.getViewer());
             }
           }, 100);
         }

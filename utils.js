@@ -190,32 +190,32 @@ function findOpenExits(element) {
 
   element.incoming.forEach(incoming => {
     const lastWp = incoming.waypoints[incoming.waypoints.length -1];
-    if(lastWp.x === element.x) {
+    if(lastWp.x === element.x && incoming.source.businessObject.name) {
       w = incoming.source.businessObject.name.replace('\n', ' ');
     }
-    if(lastWp.x === element.x + element.width) {
+    if(lastWp.x === element.x + element.width && incoming.source.businessObject.name) {
       e = incoming.source.businessObject.name.replace('\n', ' ');
     }
-    if(lastWp.y === element.y) {
+    if(lastWp.y === element.y && incoming.source.businessObject.name) {
       n = incoming.source.businessObject.name.replace('\n', ' ');
     }
-    if(lastWp.y === element.y + element.height) {
+    if(lastWp.y === element.y + element.height && incoming.source.businessObject.name) {
       s = incoming.source.businessObject.name.replace('\n', ' ');
     }
   });
 
   element.outgoing.forEach(outgoing => {
     const lastWp = outgoing.waypoints[0];
-    if(lastWp.x === element.x) {
+    if(lastWp.x === element.x && outgoing.target.businessObject.name) {
       w = outgoing.target.businessObject.name.replace('\n', ' ');
     }
-    if(lastWp.x === element.x + element.width) {
+    if(lastWp.x === element.x + element.width && outgoing.target.businessObject.name) {
       e = outgoing.target.businessObject.name.replace('\n', ' ');
     }
-    if(lastWp.y === element.y) {
+    if(lastWp.y === element.y && outgoing.target.businessObject.name) {
       n = outgoing.target.businessObject.name.replace('\n', ' ');
     }
-    if(lastWp.y === element.y + element.height) {
+    if(lastWp.y === element.y + element.height && outgoing.target.businessObject.name) {
       s = outgoing.target.businessObject.name.replace('\n', ' ');
     }
   });

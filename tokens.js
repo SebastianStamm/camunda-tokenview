@@ -19,7 +19,7 @@ const bouncyness = 0.007;
 					obj.setAttribute('radius', '0.5');
 					window.BATscene.appendChild(obj);
 
-					const latestStage = token.life[token.life.length - 1];
+					const latestStage = token.life[0];
 					const modelElement = window.BATViewer.get('elementRegistry').get(latestStage.activityId);
 
 					const position = {
@@ -32,7 +32,7 @@ const bouncyness = 0.007;
 
 					token.obj = obj;
 					token.speed = 0.03;
-					token.currentStage = token.life.length - 1;
+					token.currentStage = 0;
 					token.currentResidence = modelElement;
 					token.targetPosition = [{
 						x: modelElement.y * globalScaleFactor + Math.random() * modelElement.height * globalScaleFactor,
@@ -46,7 +46,11 @@ const bouncyness = 0.007;
 						token.targetPosition.length = 0;
 					}
 
-					token.speed = .5
+					if(token.newPositionTimeout) {
+						window.clearTimeout(token.newPositionTimeout);
+						token.newPositionTimeout = null;
+					}
+					token.speed = .7;
 					token.currentStage++;
 
 					const targetActivity = token.life[token.currentStage].activityId;
@@ -111,7 +115,7 @@ const bouncyness = 0.007;
 					}
 					token.obj.setAttribute('position', pos);
 
-					if(token.targetPosition.length === 0) {
+					if(token.targetPosition.length === 0 && !token.newPositionTimeout) {
 						// set a new targetposition to avoid idling around
 						token.newPositionTimeout = setTimeout(() => {
 							token.speed = 0.03;
@@ -119,6 +123,7 @@ const bouncyness = 0.007;
 								x: token.currentResidence.y * globalScaleFactor + Math.random() * token.currentResidence.height * globalScaleFactor,
 								z: -token.currentResidence.x * globalScaleFactor - Math.random() * token.currentResidence.width * globalScaleFactor
 							});
+							token.newPositionTimeout = null;
 						}, 1500);
 					}
 				}

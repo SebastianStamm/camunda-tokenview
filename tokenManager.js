@@ -1,5 +1,7 @@
-window.tokenManager = id => {
+let viewer;
+window.tokenManager = (id, v) => {
   window.tokenManagerInstance = id;
+  viewer = v;
 }
 
 window.setInterval(async () => {
@@ -12,9 +14,12 @@ window.setInterval(async () => {
       },
       body: JSON.stringify({
         processInstanceId: window.tokenManagerInstance,
-        "sorting":
-        [{"sortBy": "occurrence",
-        "sortOrder": "asc"
+        sorting: [{
+          sortBy: "startTime",
+          sortOrder: "asc"
+        }, {
+          sortBy: "occurrence",
+          sortOrder: "asc"
         }]
       })
     });
@@ -29,7 +34,7 @@ let ongoingActivities = {};
 window.tokens = [];
 function processResponse(response) {
   response.forEach(entry => {
-    if(ongoingActivities[entry.id] && entry.endTime ) {
+    if(ongoingActivities[entry.id] && entry.endTime) {
       ongoingActivities[entry.id].open = true;
       delete ongoingActivities[entry.id];
     }
@@ -43,13 +48,35 @@ function processResponse(response) {
 
 function process(entry) {
   // look for an open token
-  let token = window.tokens.find(token => token.open);
+  let token = window.tokens.find(token => {
+    // find a token that is
+    // a) open
+    // b) in a flow node that is before the current node
+
+    const currentActivity = viewer.get('elementRegistry').get(token.life[token.life.length - 1].activityId);
+    const nextActivity = viewer.get('elementRegistry').get(entry.activityId);
+
+    return token.open && currentActivity.outgoing.map(connection => connection.businessObject.targetRef.id).includes(nextActivity.id);
+  });
 
   if(!token) {
-    token = {
-      open: false,
-      life: []
-    };
+    // if there is a previous activity, we should create it there
+    const prevActivity = viewer.get('elementRegistry').get(entry.activityId).incoming[0];
+
+    if(prevActivity) {
+      token = {
+        open: false,
+        life: [{
+          activityId: prevActivity.businessObject.sourceRef.id
+        }]
+      };
+    } else {
+      token = {
+        open: false,
+        life: []
+      };
+    }
+
     window.tokens.push(token);
   }
 
