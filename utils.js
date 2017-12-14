@@ -191,32 +191,56 @@ function findOpenExits(element) {
   element.incoming.forEach(incoming => {
     const lastWp = incoming.waypoints[incoming.waypoints.length -1];
     if(lastWp.x === element.x && incoming.source.businessObject.name) {
-      w = incoming.source.businessObject.name.replace('\n', ' ');
+      w = {
+        name: incoming.source.businessObject.name.replace('\n', ' '),
+        incoming: true
+      };
     }
     if(lastWp.x === element.x + element.width && incoming.source.businessObject.name) {
-      e = incoming.source.businessObject.name.replace('\n', ' ');
+      e = {
+        name: incoming.source.businessObject.name.replace('\n', ' '),
+        incoming: true
+      };
     }
     if(lastWp.y === element.y && incoming.source.businessObject.name) {
-      n = incoming.source.businessObject.name.replace('\n', ' ');
+      n = {
+        name: incoming.source.businessObject.name.replace('\n', ' '),
+        incoming: true
+      };
     }
     if(lastWp.y === element.y + element.height && incoming.source.businessObject.name) {
-      s = incoming.source.businessObject.name.replace('\n', ' ');
+      s = {
+        name: incoming.source.businessObject.name.replace('\n', ' '),
+        incoming: true
+      };
     }
   });
 
   element.outgoing.forEach(outgoing => {
     const lastWp = outgoing.waypoints[0];
     if(lastWp.x === element.x && outgoing.target.businessObject.name) {
-      w = outgoing.target.businessObject.name.replace('\n', ' ');
+      w = {
+        name: outgoing.target.businessObject.name.replace('\n', ' '),
+        incoming: false
+      };
     }
     if(lastWp.x === element.x + element.width && outgoing.target.businessObject.name) {
-      e = outgoing.target.businessObject.name.replace('\n', ' ');
+      e = {
+        name: outgoing.target.businessObject.name.replace('\n', ' '),
+        incoming: false
+      };
     }
     if(lastWp.y === element.y && outgoing.target.businessObject.name) {
-      n = outgoing.target.businessObject.name.replace('\n', ' ');
+      n = {
+        name: outgoing.target.businessObject.name.replace('\n', ' '),
+        incoming: false
+      };
     }
     if(lastWp.y === element.y + element.height && outgoing.target.businessObject.name) {
-      s = outgoing.target.businessObject.name.replace('\n', ' ');
+      s = {
+        name: outgoing.target.businessObject.name.replace('\n', ' '),
+        incoming: false
+      };
     }
   });
 

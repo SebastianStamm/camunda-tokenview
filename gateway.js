@@ -247,48 +247,48 @@ function handleGateway(scene, element) {
   if(openExits.e) {
     const toLabel = document.createElement('a-entity');
     toLabel.setAttribute('rotation', '0 0 0');
-    toLabel.setAttribute('text', 'value: To; color: black; width: 5; align: center;');
+    toLabel.setAttribute('text', 'value: '+(openExits.e.incoming ? 'From' : 'To')+'; color: black; width: 5; align: center;');
     toLabel.setAttribute('position', (element.y * globalScaleFactor + element.height / 2 * globalScaleFactor) + ' 4.3 ' + -(element.x * globalScaleFactor + element.width * globalScaleFactor - layer1));
     scene.appendChild(toLabel);
     const nameLabel = document.createElement('a-entity');
     nameLabel.setAttribute('rotation', '0 0 0');
-    nameLabel.setAttribute('text', 'value: '+openExits.e+'; color: black; width: 6; align: center;');
+    nameLabel.setAttribute('text', 'value: '+openExits.e.name+'; color: black; width: 6; align: center;');
     nameLabel.setAttribute('position', (element.y * globalScaleFactor + element.height / 2 * globalScaleFactor) + ' 3.8 ' + -(element.x * globalScaleFactor + element.width * globalScaleFactor - layer1));
     scene.appendChild(nameLabel);
   }
   if(openExits.w) {
     const toLabel = document.createElement('a-entity');
     toLabel.setAttribute('rotation', '0 180 0');
-    toLabel.setAttribute('text', 'value: To; color: black; width: 5; align: center;');
+    toLabel.setAttribute('text', 'value: '+(openExits.w.incoming ? 'From' : 'To')+'; color: black; width: 5; align: center;');
     toLabel.setAttribute('position', (element.y * globalScaleFactor + element.height / 2 * globalScaleFactor) + ' 4.3 ' + -(element.x * globalScaleFactor + layer1));
     scene.appendChild(toLabel);
     const nameLabel = document.createElement('a-entity');
     nameLabel.setAttribute('rotation', '0 180 0');
-    nameLabel.setAttribute('text', 'value: '+openExits.w+'; color: black; width: 6; align: center;');
+    nameLabel.setAttribute('text', 'value: '+openExits.w.name+'; color: black; width: 6; align: center;');
     nameLabel.setAttribute('position', (element.y * globalScaleFactor + element.height / 2 * globalScaleFactor) + ' 3.8 ' + -(element.x * globalScaleFactor + layer1));
     scene.appendChild(nameLabel);
   }
   if(openExits.n) {
     const toLabel = document.createElement('a-entity');
     toLabel.setAttribute('rotation', '0 90 0');
-    toLabel.setAttribute('text', 'value: To; color: black; width: 5; align: center;');
+    toLabel.setAttribute('text', 'value: '+(openExits.n.incoming ? 'From' : 'To')+'; color: black; width: 5; align: center;');
     toLabel.setAttribute('position', (element.y * globalScaleFactor + layer1) + ' 4.3 ' + -((element.x + element.width / 2) * globalScaleFactor));
     scene.appendChild(toLabel);
     const nameLabel = document.createElement('a-entity');
     nameLabel.setAttribute('rotation', '0 90 0');
-    nameLabel.setAttribute('text', 'value: '+openExits.n+'; color: black; width: 6; align: center;');
+    nameLabel.setAttribute('text', 'value: '+openExits.n.name+'; color: black; width: 6; align: center;');
     nameLabel.setAttribute('position', (element.y * globalScaleFactor + layer1) + ' 3.8 ' + -((element.x + element.width / 2) * globalScaleFactor));
     scene.appendChild(nameLabel);
   }
   if(openExits.s) {
     const toLabel = document.createElement('a-entity');
     toLabel.setAttribute('rotation', '0 -90 0');
-    toLabel.setAttribute('text', 'value: To; color: black; width: 5; align: center;');
+    toLabel.setAttribute('text', 'value: '+(openExits.s.incoming ? 'From' : 'To')+'; color: black; width: 5; align: center;');
     toLabel.setAttribute('position', ((element.y + element.height) * globalScaleFactor - layer1) + ' 4.3 ' + -((element.x + element.width / 2) * globalScaleFactor));
     scene.appendChild(toLabel);
     const nameLabel = document.createElement('a-entity');
     nameLabel.setAttribute('rotation', '0 -90 0');
-    nameLabel.setAttribute('text', 'value: '+openExits.s+'; color: black; width: 6; align: center;');
+    nameLabel.setAttribute('text', 'value: '+openExits.s.name+'; color: black; width: 6; align: center;');
     nameLabel.setAttribute('position', ((element.y + element.height) * globalScaleFactor - layer1) + ' 3.8 ' + -((element.x + element.width / 2) * globalScaleFactor));
     scene.appendChild(nameLabel);
   }
