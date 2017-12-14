@@ -183,6 +183,15 @@ function handleModel(viewer, startNode) {
   gun.setAttribute('position', {x: 0.5, y: -0.65, z: -0.5});
   gun.setAttribute('rotation', {x: -10, y: 100, z: 10});
   gun.setAttribute('scale', {x: .003, y: .003, z: .003});
+  gun.setAttribute('visible', false);
+
+  document.body.addEventListener('keydown', ({key}) => {
+    if(key === 'g') {
+      const display = !gun.getAttribute('visible');
+      gun.setAttribute('visible', display);
+      window.crossHair.style.display = display ? 'inline' : 'none';
+    }
+  });
   camera.appendChild(gun);
 
   window.BATscene = scene;

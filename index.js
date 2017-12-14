@@ -113,6 +113,19 @@ define(['angular'], function(angular) {
 
               document.querySelector('[process-diagram]').appendChild(vrView);
 
+              // add crosshair
+              const cross = document.createElement('img');
+              cross.setAttribute('src', '/camunda/app/cockpit/scripts/tokenView/img/crosshair.png');
+              cross.style.position = 'absolute';
+              cross.style.top = '50%';
+              cross.style.left = '50%';
+              cross.style.marginLeft = '-4px';
+              cross.style.marginTop = '-4px';
+              cross.style.display = 'none';
+              window.crossHair = cross;
+
+              document.querySelector('[process-diagram]').appendChild(cross);
+
               // add a preview diagram
               const preview = document.createElement('div');
               preview.style.position = 'absolute';
