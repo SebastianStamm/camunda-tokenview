@@ -52,6 +52,8 @@ define(['angular'], function(angular) {
               tokenManager(processData.$providers.local.processInstance.data.value.id, control.getViewer());
             }
           }, 100);
+        } else {
+          tokenManager(processData.$providers.local.processInstance.data.value.id, control.getViewer());
         }
 
         // remove all bpmn io logos

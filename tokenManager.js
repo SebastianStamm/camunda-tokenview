@@ -1,7 +1,12 @@
 let viewer;
+let processedCount = 0;
+let ongoingActivities = {};
+
 window.tokenManager = (id, v) => {
   window.tokens = [];
   window.tokenManagerInstance = id;
+  processedCount = 0;
+  ongoingActivities = {};
   viewer = v;
 }
 
@@ -30,8 +35,7 @@ window.setInterval(async () => {
 }, 1000)
 
 
-let processedCount = 0;
-let ongoingActivities = {};
+
 window.tokens = [];
 function processResponse(response) {
   response.forEach(entry => {

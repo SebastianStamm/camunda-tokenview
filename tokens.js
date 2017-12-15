@@ -9,7 +9,7 @@ const bouncyness = 0.007;
 			var self = this;
 			const tokens = window.tokens;
 
-			const initialSetup = !tokens.find(token => token.obj);
+			const initialSetup = !tokens.find(token => token.obj && window.BATscene.contains(token.obj));
 
 			for(let i = 0; i < tokens.length; i++) {
 				const token = tokens[i];
@@ -21,7 +21,7 @@ const bouncyness = 0.007;
 					continue;
 				}
 
-				if(!token.obj) {
+				if(!token.obj || !window.BATscene.contains(token.obj)) {
 					// token genesis
 					const obj = document.createElement('a-sphere');
 					obj.setAttribute('color', '#5555ff');
