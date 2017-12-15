@@ -14,6 +14,13 @@ const bouncyness = 0.007;
 			for(let i = 0; i < tokens.length; i++) {
 				const token = tokens[i];
 
+				if(token.dead) {
+					if(token.obj && token.obj.parentNode) {
+						token.obj.parentNode.removeChild(token.obj);
+					}
+					continue;
+				}
+
 				if(!token.obj) {
 					// token genesis
 					const obj = document.createElement('a-sphere');

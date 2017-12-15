@@ -1,3 +1,15 @@
+let gunPointedAt = null;
+
+AFRAME.registerComponent('gun-pointer', {
+  dependencies: ['raycaster'],
+
+  init: function () {
+    this.el.addEventListener('raycaster-intersection', function (evt) {
+      gunPointedAt = evt.detail.intersections[0];
+    });
+  }
+});
+
 function getVectorNormal(vec) {
   const normal = new THREE.Vector2(vec.x, vec.y);
 
@@ -90,7 +102,7 @@ function addSpace(p1,p2,p3) {
   openSpaces.push({p1,p2,p3});
 }
 
-function handleModel(viewer, startNode) {
+function handleModel(viewer, startNode, processInstanceId) {
   const scene = document.createElement('a-scene');
   scene.setAttribute('embedded', 'true');
   scene.style.position = 'absolute';
@@ -191,8 +203,34 @@ function handleModel(viewer, startNode) {
       gun.setAttribute('visible', display);
       window.crossHair.style.display = display ? 'inline' : 'none';
     }
+
+    if(key === ' ' && gun.getAttribute('visible')) {
+      const tokenHit = tokens.find(token => token.obj && token.obj.object3D === gunPointedAt.object.parent);
+      if(tokenHit) {
+        console.log(tokenHit);
+        const activityInstanceId = tokenHit.life[tokenHit.life.length -1].id;
+
+        // cancel the activity instance
+        fetch('/camunda/api/engine/engine/default/process-instance/'+processInstanceId+'/modification', {
+          credentials: 'include',
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json;charset=UTF-8"
+          },
+          body: JSON.stringify({
+            skipCustomListeners: true,
+            skipIoMappings: true,
+            instructions: [{
+              type: 'cancel',
+              activityInstanceId
+            }]
+          })
+        });
+      }
+    }
   });
   camera.appendChild(gun);
+  camera.setAttribute('gun-pointer', true);
 
   window.BATscene = scene;
   window.BATcamera = camera;

@@ -109,7 +109,7 @@ define(['angular'], function(angular) {
             if(hoveredElement.$instanceOf('bpmn:FlowNode')) {
               console.log('should initialize view with', hoveredElement);
 
-              const vrView = handleModel(viewer, hoveredElement);
+              const vrView = handleModel(viewer, hoveredElement, processData.$providers.local.processInstance.data.value.id);
 
               document.querySelector('[process-diagram]').appendChild(vrView);
 

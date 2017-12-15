@@ -45,6 +45,14 @@ function processResponse(response) {
     process(response[processedCount]);
     processedCount++;
   }
+
+  tokens.forEach(token => {
+    // kill all open tokens
+    if(token.open) {
+      token.open = false;
+      token.dead = true;
+    }
+  });
 }
 
 function process(entry) {
