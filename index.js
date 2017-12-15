@@ -35,6 +35,7 @@ define(['angular'], function(angular) {
             if(window.AFRAME && window.tokenManager) {
               window.clearInterval(interval);
               [
+                'https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js',
                 '/camunda/app/cockpit/scripts/tokenView/globals.js',
                 '/camunda/app/cockpit/scripts/tokenView/utils.js',
                 '/camunda/app/cockpit/scripts/tokenView/collision.js',

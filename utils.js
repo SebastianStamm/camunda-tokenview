@@ -207,10 +207,15 @@ function handleModel(viewer, startNode, processInstanceId) {
     if(key === ' ' && gun.getAttribute('visible')) {
       const tokenHit = tokens.find(token => token.obj && token.obj.object3D === gunPointedAt.object.parent);
       if(tokenHit) {
-        console.log(tokenHit);
         const activityInstanceId = tokenHit.life[tokenHit.life.length -1].id;
 
-        // cancel the activity instance
+        const particles = document.createElement('a-entity');
+        particles.setAttribute('particle-system', 'color: #5555FF,#FF5555; blending: 1; accelerationValue: 0 -2 0; accelerationSpread: 0 0.001 0; velocityValue: 0 0.001 0; velocitySpread: 25 25 25; particleCount: 1000; maxAge: 6; size: 0.5; duration: 0.1;');
+        particles.setAttribute('position', tokenHit.obj.getAttribute('position'));
+        scene.appendChild(particles);
+
+        tokenHit.obj.setAttribute('visible', false);
+
         fetch('/camunda/api/engine/engine/default/process-instance/'+processInstanceId+'/modification', {
           credentials: 'include',
           method: 'POST',
