@@ -320,7 +320,7 @@ function handleTask(scene, element) {
     scene.appendChild(toLabel);
     const nameLabel = document.createElement('a-entity');
     nameLabel.setAttribute('rotation', '0 0 0');
-    nameLabel.setAttribute('text', 'value: '+openExits.e.name+'; color: black; width: 20; align: center;');
+    nameLabel.setAttribute('text', 'value: '+openExits.e.name.split('\n').join(' ')+'; color: black; width: 20; align: center;');
     nameLabel.setAttribute('position', (element.y * globalScaleFactor + element.height / 2 * globalScaleFactor) + ' 4 ' + -(element.x * globalScaleFactor + element.width * globalScaleFactor - layer1));
     scene.appendChild(nameLabel);
   }
@@ -332,7 +332,7 @@ function handleTask(scene, element) {
     scene.appendChild(toLabel);
     const nameLabel = document.createElement('a-entity');
     nameLabel.setAttribute('rotation', '0 180 0');
-    nameLabel.setAttribute('text', 'value: '+openExits.w.name+'; color: black; width: 20; align: center;');
+    nameLabel.setAttribute('text', 'value: '+openExits.w.name.split('\n').join(' ')+'; color: black; width: 20; align: center;');
     nameLabel.setAttribute('position', (element.y * globalScaleFactor + element.height / 2 * globalScaleFactor) + ' 4 ' + -(element.x * globalScaleFactor + layer1));
     scene.appendChild(nameLabel);
   }
@@ -344,7 +344,7 @@ function handleTask(scene, element) {
     scene.appendChild(toLabel);
     const nameLabel = document.createElement('a-entity');
     nameLabel.setAttribute('rotation', '0 90 0');
-    nameLabel.setAttribute('text', 'value: '+openExits.n.name+'; color: black; width: 20; align: center;');
+    nameLabel.setAttribute('text', 'value: '+openExits.n.name.split('\n').join(' ')+'; color: black; width: 20; align: center;');
     nameLabel.setAttribute('position', (element.y * globalScaleFactor + layer1) + ' 4 ' + -((element.x + element.width / 2) * globalScaleFactor));
     scene.appendChild(nameLabel);
   }
@@ -356,7 +356,7 @@ function handleTask(scene, element) {
     scene.appendChild(toLabel);
     const nameLabel = document.createElement('a-entity');
     nameLabel.setAttribute('rotation', '0 -90 0');
-    nameLabel.setAttribute('text', 'value: '+openExits.s.name+'; color: black; width: 20; align: center;');
+    nameLabel.setAttribute('text', 'value: '+openExits.s.name.split('\n').join(' ')+'; color: black; width: 20; align: center;');
     nameLabel.setAttribute('position', ((element.y + element.height) * globalScaleFactor - layer1) + ' 4 ' + -((element.x + element.width / 2) * globalScaleFactor));
     scene.appendChild(nameLabel);
   }
