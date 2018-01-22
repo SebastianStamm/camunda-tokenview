@@ -34,3 +34,5 @@ License
 -------
 
 Use under terms of the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+[Gun Model by Google](https://poly.google.com/view/aLbeOSoOpXN) is licensed under [CC-BY 3.0](https://support.google.com/poly/answer/7418679)
