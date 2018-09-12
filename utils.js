@@ -166,10 +166,10 @@ function handleModel(viewer, startNode, processInstanceId) {
   // <a-entity camera="userHeight: 1.6" look-controls></a-entity>
   const posOffset = startPosition.width / 2 * globalScaleFactor;
   const camera = document.createElement('a-entity');
-  camera.setAttribute('camera', 'userHeight: 1.6');
-  camera.setAttribute('look-controls', true);
+  camera.setAttribute('camera', true);
+  camera.setAttribute('look-controls', 'pointerLockEnabled: true');
   camera.setAttribute('wasd-controls', 'acceleration: 250');
-  camera.setAttribute('position', (startPosition.y * globalScaleFactor + posOffset) + ' 0 ' + (-startPosition.x * globalScaleFactor - posOffset));
+  camera.setAttribute('position', (startPosition.y * globalScaleFactor + posOffset) + ' 1.6 ' + (-startPosition.x * globalScaleFactor - posOffset));
   camera.setAttribute('rotation', '-45 90 0');
   camera.setAttribute('collision', true);
   camera.setAttribute('tokens', true);
