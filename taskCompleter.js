@@ -8,22 +8,10 @@ document.body.addEventListener("keydown", ({ key }) => {
 
 window.setInterval(async () => {
   if (completerRunning) {
-    const response = await fetch("/camunda/api/engine/engine/default/task", {
-      credentials: "include",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8",
-        "X-XSRF-TOKEN": document.cookie.split("=")[1]
-      },
-      body: JSON.stringify({
-        name: "Bouncer"
-      })
-    });
-
-    const json = await response.json();
-
-    json.forEach(({ id }) => {
-      fetch("/camunda/api/engine/engine/default/task/" + id + "/complete", {
+    const id = document.querySelector("dd.instance-id").textContent.trim();
+    const response = await fetch(
+      "/camunda/api/engine/engine/default/task/count",
+      {
         credentials: "include",
         method: "POST",
         headers: {
@@ -31,9 +19,52 @@ window.setInterval(async () => {
           "X-XSRF-TOKEN": document.cookie.split("=")[1]
         },
         body: JSON.stringify({
-          variables: {}
+          processInstanceId: id
         })
-      });
+      }
+    );
+
+    const numRes = (await response.json()).count;
+
+    const taskId = (await (await fetch(
+      "/camunda/api/engine/engine/default/task?firstResult=" +
+        ~~(Math.random() * numRes) +
+        "&maxResults=1",
+      {
+        credentials: "include",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8",
+          "X-XSRF-TOKEN": document.cookie.split("=")[1]
+        },
+        body: JSON.stringify({
+          processInstanceId: id
+        })
+      }
+    )).json())[0].id;
+
+    console.log(taskId);
+
+    fetch("/camunda/api/engine/engine/default/task/" + taskId + "/complete", {
+      credentials: "include",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        "X-XSRF-TOKEN": document.cookie.split("=")[1]
+      },
+      body: JSON.stringify({
+        variables: {
+          cloak: { value: Math.random() > 0.5 ? true : false, type: "Boolean" },
+          tutorial: {
+            value: Math.random() > 0.5 ? true : false,
+            type: "Boolean"
+          },
+          next: { value: Math.random() > 0.5 ? true : false, type: "Boolean" },
+          talks: { value: Math.random() > 0.5 ? true : false, type: "Boolean" },
+          boat: { value: Math.random() > 0.5 ? true : false, type: "Boolean" },
+          home: { value: Math.random() > 0.5 ? true : false, type: "Boolean" }
+        }
+      })
     });
   }
-}, 2000);
+}, 1000);
