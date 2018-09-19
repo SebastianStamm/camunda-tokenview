@@ -1,11 +1,12 @@
 let viewer;
-let processedCount = 0;
 let ongoingActivities = {};
+
+let queryOffset = '2017-09-19T13:22:01.058+0200';
+const processedMap = new Set();
 
 window.tokenManager = (id, v) => {
   window.tokens = [];
   window.tokenManagerInstance = id;
-  processedCount = 0;
   ongoingActivities = {};
   viewer = v;
 };
@@ -23,6 +24,7 @@ window.setInterval(async () => {
         },
         body: JSON.stringify({
           processInstanceId: window.tokenManagerInstance,
+          startedAfter: queryOffset,
           sorting: [
             {
               sortBy: "startTime",
@@ -43,17 +45,25 @@ window.setInterval(async () => {
 
 window.tokens = [];
 function processResponse(response) {
+  let progression = true;
+
   response.forEach(entry => {
+    if(progression && entry.endTime) {
+      queryOffset = entry.startTime;
+    }
+    if(!entry.endTime) {
+      progression = false;
+    }
     if (ongoingActivities[entry.id] && entry.endTime) {
       ongoingActivities[entry.id].open = true;
       delete ongoingActivities[entry.id];
     }
-  });
 
-  while (processedCount < response.length) {
-    process(response[processedCount]);
-    processedCount++;
-  }
+    if(!processedMap.has(entry.id)) {
+      process(entry);
+      processedMap.add(entry.id);
+    }
+  });
 
   tokens.forEach(token => {
     // kill all open tokens
