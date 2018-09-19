@@ -197,14 +197,8 @@ function handleModel(viewer, startNode, processInstanceId) {
   gun.setAttribute('scale', {x: .003, y: .003, z: .003});
   gun.setAttribute('visible', false);
 
-  document.body.addEventListener('keydown', ({key}) => {
-    if(key === 'g') {
-      const display = !gun.getAttribute('visible');
-      gun.setAttribute('visible', display);
-      window.crossHair.style.display = display ? 'inline' : 'none';
-    }
-
-    if(key === ' ' && gun.getAttribute('visible')) {
+  document.addEventListener('mousedown', () => {
+    if(gun.getAttribute('visible')) {
       const tokenHit = tokens.find(token => token.obj && token.obj.object3D === gunPointedAt.object.parent);
       if(tokenHit) {
         const activityInstanceId = tokenHit.life[tokenHit.life.length -1].id;
@@ -220,7 +214,8 @@ function handleModel(viewer, startNode, processInstanceId) {
           credentials: 'include',
           method: 'POST',
           headers: {
-            "Content-Type": "application/json;charset=UTF-8"
+            "Content-Type": "application/json;charset=UTF-8",
+            "X-XSRF-TOKEN": document.cookie.split("=")[1]
           },
           body: JSON.stringify({
             skipCustomListeners: true,
@@ -234,8 +229,17 @@ function handleModel(viewer, startNode, processInstanceId) {
       }
     }
   });
+
+  document.body.addEventListener('keydown', ({key}) => {
+    if(key === 'g') {
+      const display = !gun.getAttribute('visible');
+      gun.setAttribute('visible', display);
+      window.crossHair.style.display = display ? 'inline' : 'none';
+    }
+  });
   camera.appendChild(gun);
   camera.setAttribute('gun-pointer', true);
+  camera.setAttribute('raycaster', 'objects: a-sphere');
 
   window.BATscene = scene;
   window.BATcamera = camera;

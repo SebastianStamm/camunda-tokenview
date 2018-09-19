@@ -43,8 +43,6 @@ window.setInterval(async () => {
       }
     )).json())[0].id;
 
-    console.log(taskId);
-
     fetch("/camunda/api/engine/engine/default/task/" + taskId + "/complete", {
       credentials: "include",
       method: "POST",

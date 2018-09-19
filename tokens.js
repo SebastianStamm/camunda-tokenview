@@ -37,7 +37,11 @@ const bouncyness = 0.007;
 						z: -modelElement.x * globalScaleFactor - modelElement.width / 2 * globalScaleFactor
 					};
 
-					obj.setAttribute('position', position);
+					const pos = obj.getAttribute('position');
+					pos.x = position.x;
+					pos.y = position.y;
+					pos.z = position.z;
+					obj.setAttribute('position', pos);
 
 					token.obj = obj;
 					token.speed = 0.03;
