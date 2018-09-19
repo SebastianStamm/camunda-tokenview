@@ -24,7 +24,7 @@ const bouncyness = 0.007;
 				if(!token.obj || !window.BATscene.contains(token.obj)) {
 					// token genesis
 					const obj = document.createElement('a-sphere');
-					obj.setAttribute('color', '#5555ff');
+					obj.setAttribute('color', 'hsl('+~~(Math.random()*255)+', 70%, 50%)');
 					obj.setAttribute('radius', '0.5');
 					window.BATscene.appendChild(obj);
 
