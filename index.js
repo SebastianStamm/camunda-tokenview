@@ -112,8 +112,8 @@ define(["angular"], function(angular) {
                 initButton.style.border = "0";
                 initButton.style.pointerEvents = "none";
 
-                startPos.x = evt.screenX;
-                startPos.y = evt.screenY;
+                startPos.x = evt.clientX;
+                startPos.y = evt.clientY;
 
                 grabbed = true;
               });
@@ -121,9 +121,9 @@ define(["angular"], function(angular) {
               document.addEventListener("mousemove", evt => {
                 if (grabbed) {
                   initButton.style.bottom =
-                    15 - (evt.screenY - startPos.y) + "px";
+                    15 - (evt.clientY - startPos.y) + "px";
                   initButton.style.right =
-                    50 - (evt.screenX - startPos.x) + "px";
+                    50 - (evt.clientX - startPos.x) + "px";
                 }
               });
 
